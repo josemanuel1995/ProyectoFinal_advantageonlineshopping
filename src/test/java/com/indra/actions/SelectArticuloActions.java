@@ -1,19 +1,21 @@
 package com.indra.actions;
 
 import com.indra.pages.SelectArticuloPage;
-import org.openqa.selenium.By;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 public class SelectArticuloActions extends SelectArticuloPage {
+
     public SelectArticuloActions(WebDriver driver) {
         super(driver);
     }
 
     public void addLogin(){
         clicSignInIcono();
-        infoLogin("manuel1995","M@NUELsaxo19");
+        getCargaEnMenu().waitUntilNotVisible();
+        getBtnLoginIcono().waitUntilClickable();
+        infoLogin("manuel2020","Mde%42fggre");
         clicBtnSignI();
     }
 
@@ -31,36 +33,62 @@ public class SelectArticuloActions extends SelectArticuloPage {
         enter(password).into(getPassword());
     }
 
-    public void clicBtnShopNow(){
-        getBtnShopNow().waitUntilPresent();
-        getBtnShopNow().click();
+    public void vizualizarVistasProducto (){
+        MatcherAssert.assertThat("Vista de 1 solo producto", getVistasDelArticulo().size(),
+                Matchers.greaterThan(0));
     }
 
-    public void clicBtnBuyNow2(){
-        getBtnBuyNow2().click();
+    public void selectColorProduct (){
+        MatcherAssert.assertThat("Seleccionar un 1 color", getColoresDelArticulo().size(),
+                Matchers.greaterThan(0));
     }
 
-    public void consultarArticulo(){
-        clicBtnShopNow();
-        clicBtnBuyNow2();
+    public void aumentarCantidadProduct (){
+        getCantidadDeArticulos().clear();getCantidadDeArticulos().sendKeys("3");
+        MatcherAssert.assertThat("La cantidad de articulos es de 3", String.valueOf(getCantidadDeArticulos().getValue()),Matchers.equalTo("3"));
     }
 
-    public void agregarArticuloAlCarrito(){
-        consultarArticulo();
-        getspanColor().get(0).click();
-        getBtnAggCart().click();
+    public void vizualizaBtnAddToCart (){
+        MatcherAssert.assertThat("El btn Buy Now es visible",
+                String.valueOf(getBotonAddToCart().isEnabled()),
+                Matchers.equalTo("true"));
     }
 
-    public void cartComprasmoverMouse(){
-        WebElement gmailLink = getDriver().findElement(By.xpath("//nav//ul//li//a[@id='shoppingCartLink']"));
-        Actions actionProvider = new Actions(getDriver());
-        actionProvider.moveToElement(gmailLink).build().perform();
-
+    public void addProductAlCarrito (){
+        getBotonAddToCart().click();
     }
 
-    public void cartComprasvalidarDetalles() {
-        cartComprasmoverMouse();
-        getBtnCartCompras().click();
-        getTituloShoppingCart().isPresent();
+    public void verProductoSiEstaAdicionado(){
+        MatcherAssert.assertThat("La cantidad de productos es de 1", getCantidadDeProductosEnElCarrito().getText(),
+                Matchers.equalTo("1"));
+    }
+
+    public void visualizarLasEspecificacionesDelProducto(){
+        MatcherAssert.assertThat("Lista contiene una sola informacion",
+                getEspecificacionesDelProducto().size(),
+                Matchers.greaterThan(0));
+    }
+
+    public void ingresarACategoriaSeleccionada (String seleccionarCategoria){
+        for(int i=0; i< getCategoriasDeLosProductosEnElHome().size(); i++) {
+            if (getCategoriasDeLosProductosEnElHome().get(i).getText().equals(seleccionarCategoria)){
+                getCategoriasDeLosProductosEnElHome().get(i).click();
+                break;
+            }
+        }
+    }
+
+    public void vistaDelBtnBuyNow (){
+        MatcherAssert.assertThat("El btn Buy Now es visible", String.valueOf(getBotonBuyNow().isVisible()),
+                Matchers.equalTo("true"));
+    }
+
+    public void aggAlProductoSelect (String productoASeleccionar){
+        for(int i=0; i< getProductosEnLaCategoria().size(); i++) {
+            if (getProductosEnLaCategoria().get(i).getText().equals(productoASeleccionar)){
+                getProductosEnLaCategoria().get(i).click();
+                break;
+            }
+        }
     }
 }

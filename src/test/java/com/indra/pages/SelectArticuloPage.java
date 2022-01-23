@@ -4,6 +4,7 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -30,37 +31,77 @@ public class SelectArticuloPage extends PageObject {
     @FindBy(id = "sign_in_btnundefined")
     private WebElementFacade btnSignIn;
 
+    public WebElementFacade getCargaEnMenu() {
+        return cargaEnMenu;
+    }
+
+    public List<WebElement> getColorArticulo() {
+        return colorArticulo;
+    }
+
+    public List<WebElementFacade> getCategoriaDeLosProductosEnElHome() {
+        return categoriaDeLosProductosEnElHome;
+    }
+
     /****************  agregar articulo *****************/
 
-    @FindBy(xpath = "//div[@id='laptopsImg']")
-    private WebElementFacade btnShopNow;
+    @FindBy(className = "loader")
+    private WebElementFacade cargaEnMenu;
 
-    @FindBy(xpath = "(//button[@role='button'])[3]")
-    private WebElementFacade btnBuyNow;
+    @FindBy(xpath = "//div[@id='coverImages']//div[@class='imageAlias ng-scope']")
+    private List<WebElement> vistasDelArticulo;
 
-    @FindBy(xpath = "//button[@class='roboto-medium ng-scope']")
-    private WebElementFacade btnBuyNow2;
+    @FindBy(xpath = "(//div[@ng-show])[2]//span")
+    private List<WebElement> colorArticulo;
 
-    @FindBy(xpath = "(//span[@id='bunny'])[4]")
-    private List<WebElementFacade> spanColor;
+    @FindBy(xpath = "(//div[contains(@ng-show,'firstImageToShow')])[2]")
+    private WebElementFacade primerColorDisponible;
 
-    @FindBy(xpath = "//div[@increment-value-attr='+'][2]")
-    private List<WebElementFacade> cantidadProduct;
+    @FindBy(xpath = "//input[@name='quantity']")
+    private WebElementFacade cantidadDeArticulos;
 
     @FindBy(xpath = "//button[@name='save_to_cart']")
-    private WebElementFacade btnAggCart;
+    private WebElementFacade botonAddToCart;
 
-    /** Popup Detalles Carrito compras*/
+    @FindBy(xpath = "(//label[contains(@class,'attr ng-binding')])")
+    private List<WebElementFacade> especificacionesDelProducto;
 
-    @FindBy(xpath = "//nav//ul//li//a[@id='shoppingCartLink']")
-    private WebElementFacade btnCartCompras;
+    @FindBy(xpath = "(//span[@class='cart ng-binding'])[2]")
+    private WebElementFacade cantidadDeProductosEnElCarrito;
 
-    /** Detalles CheckOut*/
+    @FindBy(xpath = "(//span[contains(@class,'shop_now roboto-bold ng-binding')])")
+    private List<WebElementFacade> categoriaDeLosProductosEnElHome;
 
-    @FindBy(xpath = "//h3[contains(.,'SHOPPING CART')]")
-    private WebElementFacade tituloShoppingCart;
+    @FindBy(xpath = "//button[@name='buy_now']")
+    private WebElementFacade botonBuyNow;
+
+    @FindBy(xpath = "(//a[contains(@class,'productName ng-binding')])")
+    private List<WebElementFacade> productosEnLaCategoria;
 
 
+    public List<WebElement> getVistasDelArticulo() {
+        return vistasDelArticulo;
+    }
+
+    public List<WebElement> getColoresDelArticulo() {
+        return colorArticulo;
+    }
+
+    public WebElementFacade getCantidadDeArticulos() {
+        return cantidadDeArticulos;
+    }
+
+    public WebElementFacade getBotonAddToCart() {
+        return botonAddToCart;
+    }
+
+    public List<WebElementFacade> getEspecificacionesDelProducto() {
+        return especificacionesDelProducto;
+    }
+
+    public WebElementFacade getCantidadDeProductosEnElCarrito() {
+        return cantidadDeProductosEnElCarrito;
+    }
 
     public WebElementFacade getBtnLoginIcono() {
         return btnLoginIcono;
@@ -78,28 +119,15 @@ public class SelectArticuloPage extends PageObject {
         return btnSignIn;
     }
 
-    public WebElementFacade getBtnShopNow() {
-        return btnShopNow;
+    public List<WebElementFacade> getCategoriasDeLosProductosEnElHome() {
+        return categoriaDeLosProductosEnElHome;
     }
 
-    public WebElementFacade getBtnBuyNow2() {
-        return btnBuyNow2;
+    public WebElementFacade getBotonBuyNow() {
+        return botonBuyNow;
     }
 
-    public List<WebElementFacade> getspanColor() {
-        return spanColor;
+    public List<WebElementFacade> getProductosEnLaCategoria() {
+        return productosEnLaCategoria;
     }
-
-    public WebElementFacade getBtnAggCart() {
-        return btnAggCart;
-    }
-
-    public WebElementFacade getBtnCartCompras() {
-        return btnCartCompras;
-    }
-
-    public WebElementFacade getTituloShoppingCart() {
-        return tituloShoppingCart;
-    }
-
 }

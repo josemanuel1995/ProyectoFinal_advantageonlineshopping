@@ -23,7 +23,6 @@ public class RedesSocialesSteps {
     @When("^el sistema se dirige al inferior de la pagina web$")
     public void elsistemasedirigealinferiordelapaginaweb() {
         redesSocialesActions.procesoRedesSociales();
-
     }
 
     @Then("^el usuario podria visualizar 3 redes sociales$")
